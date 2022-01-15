@@ -1,7 +1,7 @@
 <template>
   <li>
     <span :class="{done: todo.completed}">
-        <input type="checkbox" @change="todo.completed= !todo.completed" >
+        <input type="checkbox" @change="todo.completed= !todo.completed"  >
         <strong>{{index +1}}</strong>
         {{todo.title}}
     </span>
@@ -14,7 +14,7 @@ export default {
 props:{
     todo:{
         type:Object,
-        require: true  //если todo не передан, комонент не работает
+        require: true 
     },
     index: Number
 },

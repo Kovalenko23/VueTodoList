@@ -2,7 +2,7 @@
   <div>
     <ul>
       <TodoItem
-        v-for="(todo, i) of todos"
+        v-for="(todo, i) of todosWork"
         :todo="todo"
         :index="i"
         @remove-todo="removeTodo"
@@ -16,7 +16,7 @@
 import TodoItem from "./TodoItem.vue";
 
 export default {
-  props: ["todos"],
+  props: ["todosWork"],
   components: { TodoItem },
 
   methods: {

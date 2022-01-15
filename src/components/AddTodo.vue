@@ -6,26 +6,15 @@
 </template>
 
 <script>
+import TodoControl from "../mixins/TodoControl"
 export default {
     data(){
         return{
             title: ''
         }
     },
-methods:{
-    onSubmit(){
-console.log("Submit", this.title)
-if (this.title.trim()){
-    const newTodo ={
-        id: Date.now(),
-        title:this.title,
-        complited: false
-    }
-    this.$emit('add-todo', newTodo)
-    this.title= ""
-}
-    }
-}
+    mixins:[TodoControl],
+methods:{}
 }
 </script>
 
