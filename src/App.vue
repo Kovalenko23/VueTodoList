@@ -1,91 +1,32 @@
 <template>
-  <div class="tabs">
-    <span
-      class="tab"
-      :class="{ activeTab: selectedTab === tab }"
-      v-for="(tab, index) in tabs"
-      :key="index"
-      @click="selectedTab = tab"
-      >{{ tab }}</span
-    >
-  </div>
-  <div class="HomeTodo" v-show="selectedTab === 'Home Tasks'">
-    <TodoList :todos="todos" @remove-todo="removeTodo" />
-    <AddTodo @add-todo="AddTodo" />
-  </div>
 
-  <div class="WorkTodo" v-show="selectedTab === 'Work Tasks'">
-    <TodoListWork :todosWork="todosWork" @remove-todo="removeTodoWork" />
-    <AddTodo @add-todo="AddTodoWork" />
+  <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/TodoList">TodoLsit</router-link>
+    <router-view/>
   </div>
+  
 </template>
-
-<script>
-import TodoList from "./components/TodoList.vue";
-import AddTodo from "./components/AddTodo.vue";
-import TodoControl from "./mixins/TodoControl";
-import TodoListWork from "./components/TodoListWork.vue";
-export default {
-  data() {
-    return {
-      tabs: ["Home Tasks", "Work Tasks"],
-      selectedTab: "Home Tasks",
-
-      todos: [
-        { id: 1, title: "create first task", completed: false },
-        { id: 2, title: "create second task", completed: false },
-        { id: 3, title: "create third task", completed: false },
-      ],
-      todosWork: [
-        { id: 1, title: "create first task for Work", completed: false },
-        { id: 2, title: "create second task for Work", completed: false },
-        { id: 3, title: "create third task for Work", completed: false },
-      ],
-    };
-  },
-  name: "App",
-  components: {
-    TodoListWork,
-    TodoList,
-    AddTodo,
-  },
-  mixins: [TodoControl],
-  methods: {
-    // removeTodo(id){
-    //   this.todos = this.todos.filter(t=> t.id !==id)
-    // },
-    // AddTodo(todo){
-    //   this.todos.push(todo)
-    // }
-  },
-};
-</script>
 
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  color: #2c3e50;
-  margin-top: 60px;
-}
-.tab {
-}
-
-.activeTab {
-  transition: opacity 5s;
-  text-decoration: underline;
-  display: inline-block;
   text-align: center;
-  vertical-align: middle;
-  user-select: none;
-  background-color: #7df187;
-  border: 1px solid #000000;
-  font-size: 16px;
-  line-height: 1.5;
-  cursor: pointer;
-  margin: 12px;
-  top: 1px;
+  color: #2c3e50;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>

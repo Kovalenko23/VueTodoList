@@ -19,7 +19,7 @@ export default {
                     id: Date.now(),
                     title: this.title,
                     complited: false
-                }
+              }
                 this.$emit('add-todo', newTodo)
                 this.title = ""
             }

@@ -5,6 +5,7 @@
         v-for="(todo, i) of todos"
         :todo="todo"
         :index="i"
+        :key="todo"
         @remove-todo="removeTodo"
       />
     </ul>
