@@ -1,24 +1,27 @@
 <template>
-  <div class="TodoList">
-  <div class="tabs">
-    <span
-      class="tab"
-      :class="{ activeTab: selectedTab === tab }"
-      v-for="(tab, index) in tabs"
-      :key="index"
-      @click="selectedTab = tab"
-      >{{ tab }}</span
-    >
-  </div>
-  <div class="HomeTodo" v-show="selectedTab === 'Home Tasks'">
-    <TodoList :todos="todos" @remove-todo="removeTodo" />
-    <AddTodo @add-todo="AddTodo" />
-  </div>
+  <div class="container">
+    <div class="top-frame" />
 
-  <div class="WorkTodo" v-show="selectedTab === 'Work Tasks'">
-    <TodoListWork :todosWork="todosWork" @remove-todo="removeTodoWork" />
-    <AddTodo @add-todo="AddTodoWork" />
-  </div>
+    <div class="TodoList">
+      <ul class="nav-tabs">
+        <li role="presentation" @click="currentTab = 'home'">
+          <a>Home Tasks</a>
+        </li>
+        <li role="presentation" @click="currentTab = 'work'">
+          <a>Work Tasks</a>
+        </li>
+      </ul>
+      <div v-if="currentTab === 'home'">
+        <TodoList :todos="todos" @remove-todo="removeTodo" />
+        <AddTodo @add-todo="AddTodo" />
+      </div>
+
+      <div v-if="currentTab === 'work'">
+        <TodoListWork :todosWork="todosWork" @remove-todo="removeTodoWork" />
+        <AddTodo @add-todo="AddTodoWork" />
+      </div>
+    </div>
+    <div class="bottom-frame" />
   </div>
 </template>
 
@@ -30,9 +33,7 @@ import TodoListWork from "../components/TodoListWork.vue";
 export default {
   data() {
     return {
-      tabs: ["Home Tasks", "Work Tasks"],
-      selectedTab: "Home Tasks",
-
+      currentTab: "home",
       todos: [
         { id: 1, title: "create first task", completed: false },
         { id: 2, title: "create second task", completed: false },
@@ -52,18 +53,42 @@ export default {
     AddTodo,
   },
   mixins: [TodoControl],
-  methods: {
-    // removeTodo(id){
-    //   this.todos = this.todos.filter(t=> t.id !==id)
-    // },
-    // AddTodo(todo){
-    //   this.todos.push(todo)
-    // }
-  },
+  methods: {},
 };
 </script>
 <style>
-.activeTab {
+/* .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.top-frame {
+  width: 35em;
+  height: 2em;
+  border: 2px solid red;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+.bottom-frame {
+  width: 35em;
+  height: 2em;
+  border: 2px solid red;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+}
+.todo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.TodoList {
+  border: 2px solid;
+  flex-direction: column;
+  width: 35em;
+  height: 50em;
+}
+.nav-tabs {
+  width: 100px;
+  height: 60px;
   transition: opacity 5s;
   text-decoration: underline;
   display: inline-block;
@@ -77,5 +102,5 @@ export default {
   cursor: pointer;
   margin: 12px;
   top: 1px;
-}
+} */
 </style>
