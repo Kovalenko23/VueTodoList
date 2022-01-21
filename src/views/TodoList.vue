@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div class="top-frame" />
-
     <div class="TodoList">
       <ul class="nav-tabs">
         <li role="presentation" @click="currentTab = 'home'">
@@ -26,10 +25,10 @@
 </template>
 
 <script>
-import TodoList from "../components/TodoList.vue";
-import AddTodo from "../components/AddTodo.vue";
+import TodoList from "../components/Todo-components/TodoList.vue";
+import AddTodo from "../components/Todo-components/AddTodo.vue";
 import TodoControl from "../mixins/TodoControl";
-import TodoListWork from "../components/TodoListWork.vue";
+import TodoListWork from "../components/Todo-components/TodoListWork.vue";
 export default {
   data() {
     return {
@@ -52,12 +51,13 @@ export default {
     TodoList,
     AddTodo,
   },
+
   mixins: [TodoControl],
   methods: {},
 };
 </script>
 <style>
-/* .container {
+.container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,5 +102,5 @@ export default {
   cursor: pointer;
   margin: 12px;
   top: 1px;
-} */
+}
 </style>

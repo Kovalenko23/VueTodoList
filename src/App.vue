@@ -3,13 +3,31 @@
     <div class="router-links">
       <router-link to="/">Home</router-link>
       <router-link to="/TodoList">TodoLsit</router-link>
+      <router-link to="/UsersBase">UsersBase</router-link>
     </div>
   </div>
-  <router-view />
+  <!-- <component :is="layout"> -->
+    <router-view />
+  <!-- </component> -->
 </template>
 
+<script>
+import BalmUI from 'balm-ui';
+
+
+export default {
+  computed: {
+    layout() {
+      const layoutName = this.$route.meta.layout;
+      return () => import(`@/layouts/${layoutName}.vue`);
+    },
+  },
+};
+</script>
 <style>
-@import "~materialize-css/dist/css/materialize.min.css";
+
+
+
 #app {
   height: 100%;
   width: 100%;
