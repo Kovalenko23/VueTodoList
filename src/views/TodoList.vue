@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <div class="top-frame" />
-
+   
     <div class="TodoList">
       <ul class="nav-tabs">
         <li role="presentation" @click="currentTab = 'home'">
@@ -21,15 +20,15 @@
         <AddTodo @add-todo="AddTodoWork" />
       </div>
     </div>
-    <div class="bottom-frame" />
+   
   </div>
 </template>
 
 <script>
-import TodoList from "../components/TodoList.vue";
-import AddTodo from "../components/AddTodo.vue";
+import TodoList from "../components/Todo-components/TodoList.vue";
+import AddTodo from "../components/Todo-components/AddTodo.vue";
 import TodoControl from "../mixins/TodoControl";
-import TodoListWork from "../components/TodoListWork.vue";
+import TodoListWork from "../components/Todo-components/TodoListWork.vue";
 export default {
   data() {
     return {
@@ -52,29 +51,14 @@ export default {
     TodoList,
     AddTodo,
   },
+
   mixins: [TodoControl],
   methods: {},
 };
 </script>
 <style>
-/* .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.top-frame {
-  width: 35em;
-  height: 2em;
-  border: 2px solid red;
-  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-}
-.bottom-frame {
-  width: 35em;
-  height: 2em;
-  border: 2px solid red;
-  border-radius: 0 0 50% 50% / 0 0 100% 100%;
-}
+
+
 .todo-container {
   display: flex;
   align-items: center;
@@ -85,6 +69,7 @@ export default {
   flex-direction: column;
   width: 35em;
   height: 50em;
+    
 }
 .nav-tabs {
   width: 100px;
@@ -102,5 +87,6 @@ export default {
   cursor: pointer;
   margin: 12px;
   top: 1px;
-} */
+  border-radius: 8px;
+}
 </style>

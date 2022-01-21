@@ -1,5 +1,5 @@
 <template>
-  <li>
+  <li class="items">
     <span :class="{done: todo.completed}">
         <input type="checkbox" @change="todo.completed= !todo.completed"  >
         <strong>{{index +1}}</strong>
@@ -25,5 +25,13 @@ props:{
 <style>
 .done{ 
     text-decoration: line-through;
+}
+.items{
+  border: 2px solid;
+  border-radius: 7px;
+  padding: 4px;
+  margin: 5px;
+  
+  ;
 }
 </style>

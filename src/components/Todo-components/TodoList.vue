@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul>
+    <ul class='tasks'>
       <TodoItem
         v-for="(todo, i) of todos"
         :todo="todo"
@@ -29,4 +29,10 @@ export default {
 </script>
 
 <style>
+
+.tasks{
+  display:flex;
+    /* display: inline-block; */
+      flex-wrap: wrap;
+}
 </style>

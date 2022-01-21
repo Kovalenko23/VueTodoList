@@ -3,13 +3,29 @@
     <div class="router-links">
       <router-link to="/">Home</router-link>
       <router-link to="/TodoList">TodoLsit</router-link>
+      <router-link to="/UsersBase">UsersBase</router-link>
     </div>
   </div>
-  <router-view />
+
+  <component :is="layout">
+    <router-view />
+  </component>
+
 </template>
 
+<script>
+import TodoLayout from "./layouts/TodoLayout.vue"
+  export default {
+    components:{TodoLayout},
+    computed: {
+      layout() {
+        return this.$route.meta.layout !== undefined ? `${ this.$route.meta.layout }-layout` : 'default-layout';
+      },
+    },
+  };
+</script>
+
 <style>
-@import "~materialize-css/dist/css/materialize.min.css";
 #app {
   height: 100%;
   width: 100%;
@@ -20,14 +36,12 @@
   text-align: center;
   color: #2c3e50;
 }
-
 #nav {
   display: flex;
   flex-flow: column wrap;
   padding: 30px;
   border: 2px solid;
 }
-
 #nav a {
   font-weight: bold;
   color: #2c3e50;
@@ -39,7 +53,6 @@
   display: flex;
   margin-top: 50%;
 }
-
 #nav a.router-link-exact-active {
   color: #42b983;
 }

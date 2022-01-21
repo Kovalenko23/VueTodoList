@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import TodoControl from "../mixins/TodoControl"
+import TodoControl from "../../mixins/TodoControl"
 export default {
     data(){
         return{
