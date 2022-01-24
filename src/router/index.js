@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 
-
-
 const routes = [
   {
     path: '/',
@@ -12,16 +10,18 @@ const routes = [
   {
     path: '/TodoList',
     name: 'TodoList',
-
     component: () => import('../views/TodoList.vue'),
     meta: {
-      layout: 'MainLayout'
+      layout: 'todo'
     }
   },
   {
     path: '/UsersBase',
     name: 'UsersBase',
     component: () => import('../views/UsersBase'),
+    meta: {
+      layout: 'main'
+    }
   },
 
 ]

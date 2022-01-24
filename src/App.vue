@@ -6,24 +6,23 @@
       <router-link to="/UsersBase">UsersBase</router-link>
     </div>
   </div>
-  <!-- <component :is="layout"> -->
+
+  <component :is="layout">
     <router-view />
-  <!-- </component> -->
+  </component>
+
 </template>
 
 <script>
-import BalmUI from 'balm-ui';
-
-
-export default {
-  computed: {
-    layout() {
-      const layoutName = this.$route.meta.layout;
-      return () => import(`@/layouts/${layoutName}.vue`);
+  export default {
+    computed: {
+      layout() {
+        return this.$route.meta.layout !== undefined ? `${ this.$route.meta.layout }-layout` : 'default-layout';
+      },
     },
-  },
-};
+  };
 </script>
+
 <style>
 
 
