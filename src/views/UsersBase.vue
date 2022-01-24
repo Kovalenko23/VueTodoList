@@ -1,4 +1,5 @@
 <template>
+  <el-input @keyup="handleDebouncedSearch" v-model="searchStr" />
   <el-table :data="users" style="width: 100%">
       <el-table-column
         prop="id"
@@ -30,11 +31,13 @@
 
 <script>
   import { mapGetters } from 'vuex';
+  import debounce from '@/utils/debounce';
 
   export default {
     name: 'UsersList',
     data() {
       return {
+        searchStr: '',
         localUsersList: []
       }
     },
@@ -55,6 +58,10 @@
           .catch(error => console.error('users request error', error))
     },
     methods: {
+      handleDebouncedSearch: debounce(function (e) {
+        if (!e.target.value) this.searchStr = '';
+        return this.searchStr = e.target.value;
+      }, 500),
       handleDeleteUser(idx) {
         //this.localUsersList.splice(idx, 1);
 
