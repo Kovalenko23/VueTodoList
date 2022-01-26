@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 
-import UsersService from '@/services/users.service';
+import UsersService from '@/services/user.service';
 
 let state = {
   usersList: null
@@ -29,13 +29,13 @@ const actions = {
   getUsersList({ commit }) {
     return new Promise((resolve, reject) => {
       UsersService
-          .usersList()
-          .then(response => {
-            commit('SET_USERS_LIST', response.data);
+        .usersList()
+        .then(response => {
+          commit('SET_USERS_LIST', response.data);
 
-            return resolve(response.data);
-          })
-          .catch(error => reject(error));
+          return resolve(response.data);
+        })
+        .catch(error => reject(error));
     })
   }
 };
@@ -45,12 +45,8 @@ const getters = {
     return state.usersList;
   },
 
-  GET_TAGS: state => {
-    return state.tags;
-  },
   getUsersList: state => state.usersList
 };
-
 export default createStore({
   state,
   mutations,

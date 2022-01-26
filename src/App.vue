@@ -2,7 +2,7 @@
   <div id="nav">
     <div class="router-links">
       <router-link to="/">Home</router-link>
-      <router-link to="/TodoList">TodoLsit</router-link>
+      <router-link to="/TodoList">TodoList</router-link>
       <router-link to="/UsersBase">UsersBase</router-link>
     </div>
   </div>
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+
 import TodoLayout from "./layouts/TodoLayout.vue"
   export default {
     components:{TodoLayout},
