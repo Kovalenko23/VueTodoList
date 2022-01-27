@@ -1,5 +1,6 @@
 <template>
-  <input @keyup="handleDebouncedSearch" v-model="searchStr" />
+
+  <el-input @keyup="handleDebouncedSearch" v-model="searchStr" />
   <el-table :data="users" style="width: 100%">
     <el-table-column prop="id" label="User ID" width="180" />
 
@@ -21,10 +22,12 @@
       </template>
     </el-table-column>
   </el-table>
+  
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters} from "vuex";
+import debounce from '../utils/debounce';
 export default {
   name: "UserBase",
   // setup() {
@@ -35,14 +38,46 @@ export default {
   // },
   data() {
     return {
+      searchStr:"",
       requestResult: [],
     };
   },
   computed: {
+
       ...mapGetters({
         users: 'getUsersList'
-      })
+      }),
+
+      matchingName(){
+        return users.email.filtered((email)=>users.includes(searchStr.value))
+        
+      },
+
+
+      users() {
+        if (!this.searchStr) return this.$store.getters.getUsersList;
+
+        let filteredUsers = []
+
+        for (let i of this.$store.getters.getUsersList) {
+          if (i.email.toUpperCase().includes(this.searchStr.toUpperCase()))
+            filteredUsers.push(i)
+        }
+
+        return filteredUsers
+      }
     },
+      methods:{
+         handleDebouncedSearch: debounce(function (e) {
+        if (!e.target.value) this.searchStr = '';
+        return this.searchStr = e.target.value;
+      }, 500),
+         handleDeleteUser(idx) {
+        //this.localUsersList.splice(idx, 1);
+        this.$store.commit('REMOVE_USER', idx);        
+      },
+       
+      },
     beforeCreate() {
       console.log('this.users', this.users);
       this.$store
@@ -58,6 +93,7 @@ export default {
   },
  
 };
+
 </script>
 
 <style scoped>

@@ -41,9 +41,9 @@ const actions = {
 };
 
 const getters = {
-  GET_JSON: state => {
-    return state.usersList;
-  },
+//  GET_JSON: state => {
+//      return state.usersList;
+//    },
 
   getUsersList: state => state.usersList
 };
