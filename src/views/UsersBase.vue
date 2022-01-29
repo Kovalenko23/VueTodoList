@@ -1,5 +1,4 @@
 <template>
-
   <el-input @keyup="handleDebouncedSearch" v-model="searchStr" />
   <el-table :data="users" style="width: 100%">
     <el-table-column prop="id" label="User ID" width="180" />
@@ -12,7 +11,10 @@
 
     <el-table-column fixed="right" label="Operations" width="120">
       <template #default="scope">
-        <el-button type="primary" @click="showUserDetails(scope.$index)" circle
+        <el-button
+          type="primary"
+          @click="showUserDetails(scope.$index, scope.$name)"
+          circle
           >Details</el-button
         >
 
@@ -22,12 +24,11 @@
       </template>
     </el-table-column>
   </el-table>
-  
 </template>
 
 <script>
-import { mapGetters} from "vuex";
-import debounce from '../utils/debounce';
+import { mapGetters } from "vuex";
+import debounce from "../utils/debounce";
 export default {
   name: "UserBase",
   // setup() {
@@ -38,62 +39,65 @@ export default {
   // },
   data() {
     return {
-      searchStr:"",
+      searchStr: "",
       requestResult: [],
     };
   },
+
   computed: {
+    ...mapGetters({
+      users: "getUsersList",
+    }),
 
-      ...mapGetters({
-        users: 'getUsersList'
-      }),
+    matchingName() {
+      return users.email.filtered((email) => users.includes(searchStr.value));
+    },
 
-      matchingName(){
-        return users.email.filtered((email)=>users.includes(searchStr.value))
-        
-      },
+    users() {
+      if (!this.searchStr) return this.$store.getters.getUsersList;
 
+      let filteredUsers = [];
 
-      users() {
-        if (!this.searchStr) return this.$store.getters.getUsersList;
-
-        let filteredUsers = []
-
-        for (let i of this.$store.getters.getUsersList) {
-          if (i.email.toUpperCase().includes(this.searchStr.toUpperCase()))
-            filteredUsers.push(i)
-        }
-
-        return filteredUsers
+      for (let i of this.$store.getters.getUsersList) {
+        if (i.email.toUpperCase().includes(this.searchStr.toUpperCase()))
+          filteredUsers.push(i);
       }
+      return filteredUsers;
     },
-      methods:{
-         handleDebouncedSearch: debounce(function (e) {
-        if (!e.target.value) this.searchStr = '';
-        return this.searchStr = e.target.value;
-      }, 500),
-         handleDeleteUser(idx) {
-        //this.localUsersList.splice(idx, 1);
-        this.$store.commit('REMOVE_USER', idx);        
-      },
-       
-      },
-    beforeCreate() {
-      console.log('this.users', this.users);
-      this.$store
-          .dispatch('getUsersList')
-          .then(response => {
-            console.log('users request response', response)
-            this.localUsersList = response
-          })
-          .catch(error => console.error('users request error', error))
+  },
+  methods: {
+    handleDebouncedSearch: debounce(function (e) {
+      if (!e.target.value) this.searchStr = "";
+      return (this.searchStr = e.target.value);
+    }, 500),
+
+    showDetails(id) {},
+
+    handleDeleteUser(idx) {
+      //this.localUsersList.splice(idx, 1);
+      this.$store.commit("REMOVE_USER", idx);
     },
+
+    showUserDetails(idx) {
+      console.log("showUserDetails", idx);
+    },
+  },
+
+  beforeCreate() {
+    console.log("this.users", this.users);
+    this.$store
+      .dispatch("getUsersList")
+      .then((response) => {
+        console.log("users request response", response);
+        this.localUsersList = response;
+      })
+      .catch((error) => console.error("users request error", error));
+  },
+
   mounted() {
     console.log(this.users);
   },
- 
 };
-
 </script>
 
 <style scoped>
