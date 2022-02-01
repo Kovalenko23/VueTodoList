@@ -1,11 +1,20 @@
-function debounce(fn, ms) {
-  let timeout;
-  return function(...args) {
-    const context = this
-    clearTimeout(timeout)
-    timeout = setTimeout(() => fn.apply(context, args), ms)
-  }
-}
+// function debounce(fn, ms) {
+//   let timeout;
+//   return function(...args) {
+//     const context = this
+//     clearTimeout(timeout)
+//     timeout = setTimeout(() => fn.apply(context, args), ms)
+//   }
+// }
+
+// const debounce =(fn, ms = 500) => {
+//       let timeout;
+//         return () => {
+//           clearTimeout(timeout);
+//           timeout = setTimeout(fn, ms)
+//         };
+//       },
+
 
 
 // const debounce = (fn, ms) => {
@@ -23,5 +32,14 @@ function debounce(fn, ms) {
 //       }, ms)
 //     }
 //   };
+
+function debounce(fn, ms) {
+  let timeout;
+  return function(...args) {
+    const context = this
+    clearTimeout(timeout)
+    timeout = setTimeout(() => fn.apply(context, args), ms)
+  }
+}
 
 export default debounce;

@@ -19,17 +19,17 @@ const mutations = {
 };
 
 const actions = {
-  async loadJson({ commit }, value) {
-    try {
-      const { data } = await axios.get(`https://jsonplaceholder.typicode.com/users`);
-    } catch (error) {
-      return error.response.data;
-    }
-  },
-  getUsersList({ commit }) {
+  // async loadJson({ commit }, value) {
+  //   try {
+  //     const { data } = await axios.get(`https://jsonplaceholder.typicode.com/users`);
+  //   } catch (error) {
+  //     return error.response.data;
+  //   }
+  // },
+  getUsersList({ commit },number) {
     return new Promise((resolve, reject) => {
       UsersService
-        .usersList()
+        .usersList(number)
         .then(response => {
           commit('SET_USERS_LIST', response.data);
 
