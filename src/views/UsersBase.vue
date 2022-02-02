@@ -1,46 +1,36 @@
 <template>
-  <div>
-    <el-input @keyup="handleDebouncedSearch" v-model="searchStr" />
-    <el-select v-model="value" placeholder="Select">
-      <el-option
-        v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value"
-        :disabled="item.disabled"
-      >
-      </el-option>
-      <!-- <userCard v-if="isCardVisible" @closeCard="closeDetailsCard" /> -->
-    </el-select>
+  <el-input @keyup="handleDebouncedSearch" v-model="searchStr" />
+  <el-select v-model="value" placeholder="Select" @change="userPerPage(value)">
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value"
+      :disabled="item.disabled"
+    >
+    </el-option>
+  </el-select>
+  <el-table :data="users" style="width: 100%">
+    <el-table-column prop="id" label="User ID" width="180" />
 
-    <el-table :data="localUsersList" style="width: 100%">
-      <el-table-column prop="id" label="User ID" width="180" />
+    <el-table-column prop="username" label="Username" width="180" />
 
-      <el-table-column prop="username" label="Username" width="180" />
+    <el-table-column prop="name" label="Name" />
 
-      <el-table-column prop="name" label="Name" />
+    <el-table-column prop="email" label="Email" />
 
-      <el-table-column prop="email" label="Email" />
+    <el-table-column fixed="right" label="Operations" width="120">
+      <template #default="scope">
+        <el-button type="primary" @click="showUserDetails(scope.$index)" circle
+          >Details</el-button
+        >
 
-      <el-table-column fixed="right" label="Operations" width="120">
-        <template #default="scope">
-          <el-button
-            type="primary"
-            @click="showUserDetails(scope.$index)"
-            circle
-            >Details</el-button
-          >
-
-          <el-button
-            type="danger"
-            @click="handleDeleteUser(scope.$index)"
-            circle
-            >Remove</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
-  </div>
+        <el-button type="danger" @click="handleDeleteUser(scope.$index)" circle
+          >Remove</el-button
+        >
+      </template>
+    </el-table-column>
+  </el-table>
 </template>
 
 <script>
@@ -50,12 +40,7 @@ import userCard from "../components/Users-components/UserCard.vue";
 
 export default {
   name: "UserBase",
-  // setup() {
-  //   this.$store.dispatch("getUsersList");
-  //   then((response) => (this.requestResult = response)).catch((error) =>
-  //     console.error(error)
-  //   );
-  // },
+
   data() {
     return {
       searchStr: "",
@@ -74,6 +59,10 @@ export default {
         {
           value: "50",
           label: "50",
+        },
+         {
+          value: "100",
+          label: "100",
         },
       ],
     };
@@ -107,6 +96,10 @@ export default {
     },
   },
   methods: {
+    userPerPage(userAmount) {
+      this.$store.dispatch("getUsersList", userAmount);
+    },
+
     handleDebouncedSearch: debounce(function (e) {
       if (!e.target.value) this.searchStr = "";
       return (this.searchStr = e.target.value);
@@ -136,12 +129,10 @@ export default {
         this.localUsersList = response;
       })
       .catch((error) => console.error("users request error", error));
-      
   },
 
-
   mounted() {
-    console.log("mounted",this.users);
+    console.log("mounted", this.users);
   },
 };
 </script>

@@ -26,20 +26,19 @@ const actions = {
   //     return error.response.data;
   //   }
   // },
-  getUsersList({ commit },number) {
+  getUsersList({ commit }, userAmount) {
     return new Promise((resolve, reject) => {
       UsersService
-        .usersList(number)
-        .then(response => {
-          commit('SET_USERS_LIST', response.data);
+          .usersList(userAmount)
+          .then(response => {
+            commit('SET_USERS_LIST', response.data.users);
 
-          return resolve(response.data);
-        })
-        .catch(error => reject(error));
+            return resolve(response.data.users);
+          })
+          .catch(error => reject(error));
     })
   }
 };
-
 const getters = {
 //  GET_JSON: state => {
 //      return state.usersList;
