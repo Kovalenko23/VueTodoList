@@ -1,45 +1,52 @@
 <template>
-<div>
-  <el-input @keyup="handleDebouncedSearch" v-model="searchStr" />
+  <div>
+    <el-input @keyup="handleDebouncedSearch" v-model="searchStr" />
     <el-select v-model="value" placeholder="Select">
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value"
-      :disabled="item.disabled"
-    >
-    </el-option>
-     <userCard
-    v-if="isCardVisible"
-    @closeCard='closeDetailsCard'
- />
-  </el-select>
+      <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
+        :disabled="item.disabled"
+      >
+      </el-option>
+      <!-- <userCard v-if="isCardVisible" @closeCard="closeDetailsCard" /> -->
+    </el-select>
 
-  <el-table :data="users" style="width: 100%">
-    <el-table-column prop="id" label="User ID" width="180" />
+    <el-table :data="localUsersList" style="width: 100%">
+      <el-table-column prop="id" label="User ID" width="180" />
 
-    <el-table-column prop="username" label="Username" width="180" />
+      <el-table-column prop="username" label="Username" width="180" />
 
-    <el-table-column prop="name" label="Name" />
+      <el-table-column prop="name" label="Name" />
 
-    <el-table-column prop="email" label="Email" />
+      <el-table-column prop="email" label="Email" />
 
-    <el-table-column fixed="right" label="Operations" width="120">
- <template #default="scope">
-        <el-button type="primary" @click="showUserDetails(scope.$index)" circle>Details</el-button>
+      <el-table-column fixed="right" label="Operations" width="120">
+        <template #default="scope">
+          <el-button
+            type="primary"
+            @click="showUserDetails(scope.$index)"
+            circle
+            >Details</el-button
+          >
 
-        <el-button type="danger" @click="handleDeleteUser(scope.$index)" circle>Remove</el-button>
-      </template>
-    </el-table-column>
+          <el-button
+            type="danger"
+            @click="handleDeleteUser(scope.$index)"
+            circle
+            >Remove</el-button
+          >
+        </template>
+      </el-table-column>
     </el-table>
-</div>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import debounce from "../utils/debounce";
-import userCard from "../components/users-components/UserCard.vue"
+import userCard from "../components/Users-components/UserCard.vue";
 
 export default {
   name: "UserBase",
@@ -54,30 +61,30 @@ export default {
       searchStr: "",
       requestResult: [],
       // value:ref(''),
-      
- options : [
-  {
-    value: '10',
-    label: '10',
-  },
-  {
-    value: '20',
-    label: '20',
-  },
-  {
-    value: '50',
-    label: '50',
-  },
-]
+
+      options: [
+        {
+          value: "10",
+          label: "10",
+        },
+        {
+          value: "20",
+          label: "20",
+        },
+        {
+          value: "50",
+          label: "50",
+        },
+      ],
     };
   },
-   props: {
-        usersData: {
-            type: Object,
-            required: false
-        }
+  props: {
+    usersData: {
+      type: Object,
+      required: false,
     },
-    components:{userCard},
+  },
+  components: { userCard },
   computed: {
     ...mapGetters({
       users: "getUsersList",
@@ -115,9 +122,9 @@ export default {
       this.$store.commit("REMOVE_USER", idx);
     },
 
-   showUserDetails(idx) {
-        console.log('showUserDetails', idx)
-      }
+    showUserDetails(idx) {
+      console.log("showUserDetails", idx);
+    },
   },
 
   beforeCreate() {
@@ -129,10 +136,12 @@ export default {
         this.localUsersList = response;
       })
       .catch((error) => console.error("users request error", error));
+      
   },
 
+
   mounted() {
-    console.log(this.users);
+    console.log("mounted",this.users);
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
 <form @submit.prevent="onSubmit">
-  <input type="text" v-model="title">
+   <el-input type="text" v-model="title" placeholder="Create new task"/>
   <button type="submit">Create</button>
 </form>
 </template>

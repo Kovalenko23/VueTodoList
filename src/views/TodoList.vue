@@ -65,10 +65,11 @@ export default {
   justify-content: center;
 }
 .TodoList {
-  border: 2px solid;
+  border: 5px solid #409EFF;
   flex-direction: column;
   width: 35em;
   height: 50em;
+background-color:#40a0ff75 ;
     
 }
 .nav-tabs {

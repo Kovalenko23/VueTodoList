@@ -24,13 +24,15 @@
 .top-frame {
   width: 35em;
   height: 2em;
-  border: 2px solid red;
+  border: 4px solid #F56C6C;
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background-color: #F56C6C;
 }
 .bottom-frame {
   width: 35em;
   height: 2em;
-  border: 2px solid red;
+  border: 4px solid #F56C6C;
   border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  background-color: #F56C6C;
 }
 </style>
