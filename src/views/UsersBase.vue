@@ -48,6 +48,10 @@ export default {
       // value:ref(''),
 
       options: [
+         {
+          value: "0",
+          label: "I WANNA SEE NOTHING",
+        },
         {
           value: "10",
           label: "10",
@@ -63,6 +67,10 @@ export default {
          {
           value: "100",
           label: "100",
+        },
+           {
+          value: "1000",
+          label: "WHERE IS MY USERS, LEBOWSKIY",
         },
       ],
     };
