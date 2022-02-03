@@ -6,16 +6,16 @@
 //     timeout = setTimeout(() => fn.apply(context, args), ms)
 //   }
 // }
-
-// const debounce =(fn, ms = 500) => {
+// export default{
+// debounce:(fn, ms = 500) => {
 //       let timeout;
 //         return () => {
 //           clearTimeout(timeout);
 //           timeout = setTimeout(fn, ms)
 //         };
 //       },
-
-
+// }
+      // export default 
 
 // const debounce = (fn, ms) => {
 
@@ -33,7 +33,7 @@
 //     }
 //   };
 
-function debounce(fn, ms) {
+function debounce(fn, ms = 2000) {
   let timeout;
   return function(...args) {
     const context = this

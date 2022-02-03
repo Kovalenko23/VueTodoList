@@ -1,6 +1,6 @@
 <template>
   <el-input @keyup="handleDebouncedSearch" v-model="searchStr" />
-  <el-select v-model="value" placeholder="Select" @change="userPerPage(value)">
+   <el-select v-model="value" placeholder="Select" @change="userPerPage(value)">
     <el-option
       v-for="item in options"
       :key="item.value"
@@ -9,7 +9,7 @@
       :disabled="item.disabled"
     >
     </el-option>
-  </el-select>
+  </el-select> 
   <el-table :data="users" style="width: 100%">
     <el-table-column prop="id" label="User ID" width="180" />
 
@@ -21,7 +21,7 @@
 
     <el-table-column fixed="right" label="Operations" width="120">
       <template #default="scope">
-        <el-button type="primary" @click="$router.push(`/UserBase/${scope.row.id}`)" circle
+      <el-button type="primary" @click="$router.push(`/UsersBase/${scope.row.id}`)" circle
           >Details</el-button
         >
 
@@ -44,6 +44,7 @@ export default {
   data() {
     return {
       searchStr: "",
+      debounsedString: '',
       requestResult: [],
       // value:ref(''),
 
@@ -83,6 +84,11 @@ export default {
   },
   components: {},
   computed: {
+
+    handleDebouncedSearch() {
+      return debounce(() => this.debounsedString = this.searchStr)
+    },
+
     ...mapGetters({
       users: "getUsersList",
     }),
@@ -91,13 +97,13 @@ export default {
       return users.email.filtered((email) => users.includes(searchStr.value));
     },
 
-    users() {
-      if (!this.searchStr) return this.$store.getters.getUsersList;
+     users() {
+      if (!this.debounsedString) return this.$store.getters.getUsersList;
 
       let filteredUsers = [];
 
       for (let i of this.$store.getters.getUsersList) {
-        if (i.email.toUpperCase().includes(this.searchStr.toUpperCase()))
+        if (i.email.toUpperCase().includes(this.debounsedString.toUpperCase()))
           filteredUsers.push(i);
       }
       return filteredUsers;
@@ -108,25 +114,17 @@ export default {
       this.$store.dispatch("getUsersList", userAmount);
     },
 
-    handleDebouncedSearch: debounce(function (e) {
-      if (!e.target.value) this.searchStr = "";
-      return (this.searchStr = e.target.value);
-    }, 500),
+    // handleDebouncedSearch: debounce(function (e) {
+    //   if (!e.target.value) this.searchStr = "";
+    //   return (this.searchStr = e.target.value);
+    // }, 500),
 
-    // showDetails (id) {
-    //         this.isCardVisible = true;
-    //         this.currentUser = this.$store.getters.getUsersList.find(user => user.id === id)
-    //         console.log(this.currentUser)},
 
     handleDeleteUser(idx) {
       //this.localUsersList.splice(idx, 1);
       this.$store.commit("REMOVE_USER", idx);
     },
 
-    showUserDetails(idx) {
-      console.log("showUserDetails", idx);
-
-    },
   },
 
   beforeCreate() {
