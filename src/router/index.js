@@ -18,12 +18,19 @@ const routes = [
   {
     path: '/UsersBase',
     name: 'UsersBase',
-    component: () => import('../views/UsersBase'),
+    component: () => import('../views/UsersBase.vue'),
     meta: {
       layout: 'main'
     }
   },
-
+   {
+     path: '/UsersBase/:id',
+     name: 'SelectedUser',
+    component: () => import('../views/SelectedUser'),
+    meta:{
+      layout:'main'
+    }
+   }
 ]
 
 const router = createRouter({

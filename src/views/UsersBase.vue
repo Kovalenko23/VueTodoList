@@ -21,7 +21,7 @@
 
     <el-table-column fixed="right" label="Operations" width="120">
       <template #default="scope">
-        <el-button type="primary" @click="showUserDetails(scope.$index)" circle
+        <el-button type="primary" @click="$router.push(`/UserBase/${scope.row.id}`)" circle
           >Details</el-button
         >
 
@@ -36,7 +36,7 @@
 <script>
 import { mapGetters } from "vuex";
 import debounce from "../utils/debounce";
-import userCard from "../components/Users-components/UserCard.vue";
+
 
 export default {
   name: "UserBase",
@@ -81,7 +81,7 @@ export default {
       required: false,
     },
   },
-  components: { userCard },
+  components: {},
   computed: {
     ...mapGetters({
       users: "getUsersList",
@@ -125,6 +125,7 @@ export default {
 
     showUserDetails(idx) {
       console.log("showUserDetails", idx);
+
     },
   },
 
